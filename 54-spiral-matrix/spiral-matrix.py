@@ -2,45 +2,39 @@ class Solution:
     def spiralOrder(self, matrix: List[List[int]]) -> List[int]:
         m, n = len(matrix), len(matrix[0])
         res = []
-        TOP, LEFT, RIGHT, BOTTOM = 1, 2, 3, 4
+        RIGHT, DOWN, LEFT, UP = 1, 2, 3, 4
 
+        i,j =0, 0
+
+        rWall, dWall, lWall, uWall = n, m, -1, 0
         direction = RIGHT
-
-        i, j = 0, 0
-
-        RIGHT_WALL = n
-        LEFT_WALL = -1
-        TOP_WALL = 0
-        BOTTOM_WALL = m
-
         while len(res) != m*n:
             if direction == RIGHT:
-                while j < RIGHT_WALL:
+                while j < rWall:
                     res.append(matrix[i][j])
-                    j+=1
-                i, j = i+1, j-1
-                RIGHT_WALL -= 1
-                direction = BOTTOM
-            elif direction == BOTTOM:
-                while i < BOTTOM_WALL:
+                    j += 1
+                i, j = i + 1, j-1
+                direction = DOWN
+                rWall -= 1
+            elif direction == DOWN:
+                while i < dWall:
                     res.append(matrix[i][j])
                     i += 1
-                i, j = i - 1, j - 1
-                BOTTOM_WALL -= 1
+                i, j = i-1, j-1
                 direction = LEFT
+                dWall -= 1
             elif direction == LEFT:
-                while j > LEFT_WALL:
+                while j > lWall:
                     res.append(matrix[i][j])
                     j -= 1
-                i, j = i-1, j+1
-                LEFT_WALL += 1
-                direction = TOP
+                i, j = i - 1, j + 1
+                direction = UP
+                lWall += 1
             else:
-                while i > TOP_WALL:
+                while i > uWall:
                     res.append(matrix[i][j])
                     i -= 1
-                i, j = i+1, j+1
-                TOP_WALL += 1
+                i, j = i + 1, j + 1
                 direction = RIGHT
+                uWall += 1
         return res
-
