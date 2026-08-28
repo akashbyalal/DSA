@@ -5,5 +5,4 @@ class Solution:
         """
         if n != 0:
             nums1[-n:] = nums2
-
             nums1.sort()
